@@ -1,0 +1,16 @@
+diff --git a/svelte.config.js b/svelte.config.js
+index 5cb2550..b6eecf5 100644
+--- a/svelte.config.js
++++ b/svelte.config.js
+@@ -12,7 +12,10 @@ const config = {
+ 			pages: 'build',
+ 			assets: 'build',
+ 			fallback: null
+-		})
++		}),
++		paths: {
++			base: process.env.NODE_ENV === 'production' ? '/sveltekit-web3-login' : ''
++		}
+ 	}
+ };
+ 

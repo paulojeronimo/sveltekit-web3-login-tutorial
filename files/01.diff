@@ -1,0 +1,8 @@
+diff --git a/src/routes/+page.svelte b/src/routes/+page.svelte
+index 5982b0a..2aebcde 100644
+--- a/src/routes/+page.svelte
++++ b/src/routes/+page.svelte
+@@ -1,2 +1,2 @@
+ <h1>Welcome to SvelteKit</h1>
+-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
++<p>Visit <a href="https://paulojeronimo.com">paulojeronimo.com</a></p>

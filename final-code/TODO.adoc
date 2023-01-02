@@ -1,0 +1,11 @@
+== Related to the login with Firebase
+
+* Create a writable-store to share the auth context between the pages.
+* When entering on pages 'Login | Register' or 'Login Web3':
+** Set the focus on the first input field.
+* When registering a new user:
+** Create a new input field do enter a confirmation for the password.
+** Do a form validation on submit.
+
+== Related to the login with Moralis
+

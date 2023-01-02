@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Paulo Jerônimo, paulojeronimo@gmail.com">
+<title>SvelteKit Web3 Login Tutorial</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="./asciidoctor.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
+</head>
+<body class="article toc2 toc-left doc">
+<div id="header">
+<h1>SvelteKit Web3 Login Tutorial</h1>
+<div class="details">
+<span id="author" class="author">Paulo Jerônimo, paulojeronimo@gmail.com</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#introduction">1. Introduction</a></li>
+<li><a href="#setting-up-the-tools-you-will-need-to-follow-this-tutorial">2. Setting up the tools you will need to follow this tutorial</a></li>
+<li><a href="#creating-the-sveltekit-project">3. Creating the SvelteKit project</a></li>
+<li><a href="#creating-the-about-page">4. Creating the 'About' page</a>
+<ul class="sectlevel2">
+<li><a href="#testing-a-simple-change">4.1. Testing a simple change</a></li>
+<li><a href="#adding-an-about-page">4.2. Adding an 'About' page</a></li>
+</ul>
+</li>
+<li><a href="#building-static-pages-static-site-generation-ssg">5. Building static pages (Static Site Generation - SSG)</a></li>
+<li><a href="#deploy-to-github-pages">6. Deploy to GitHub Pages</a></li>
+<li><a href="#putting-the-redundant-code-in-a-layout-file">7. Putting the redundant code in a layout file</a></li>
+<li><a href="#building-a-navbar-using-sveltestrap">8. Building a Navbar (using sveltestrap)</a></li>
+<li><a href="#many-other-topics">9. Many other topics &#8230;&#8203;</a></li>
+<li><a href="#the-final-code">10. The final code</a>
+<ul class="sectlevel2">
+<li><a href="#running-locally">10.1. Running locally</a></li>
+<li><a href="#deploying-to-github-pages">10.2. Deploying to GitHub Pages</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph text-center">
+<p><strong><em>This tutorial was updated on 2023-01-02 09:45:33 -0300.</em></strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="anchor" href="#introduction"></a>1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, you will see how this web application is built:</p>
+</div>
+<div class="paragraph text-center">
+<p><strong><a href="https://paulojeronimo.com/sveltekit-web3-login" class="bare">https://paulojeronimo.com/sveltekit-web3-login</a></strong></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>STATUS</strong>: This tutorial is a <strong>WORK IN PROGRESS</strong>.
+So, at this moment, <span class="red">it is an incomplete tutorial</span> even though
+<a href="#the-final-code">The final code</a> is present.</p>
+</li>
+<li>
+<p>To get a Git repository with all the steps presented in this tutorial,
+  you will need to build it yourself because, at this moment, I will
+only share the Git repo of this tutorial with the participants of
+<a href="https://paulojeronimo.com/sitemap/#finishertech-edu" target="_blank" rel="noopener">my Web3 mentoring</a>.
+But, the steps followed in this tutorial will be available in a video on
+<a href="https://odysee.com/@paulojeronimo:4" target="_blank" rel="noopener">my Odysee channel</a>.
+<span class="red">Please don&#8217;t ask me to share the entire Git repository as I won&#8217;t
+help you.</span></p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The link above shows you an application that offers two possibilities:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Register/ Login a user using <a href="https://firebase.google.com/" target="_blank" rel="noopener">Firebase</a> (Web2).</p>
+</li>
+<li>
+<p>Login using Metamask and <a href="https://moralis.io/" target="_blank" rel="noopener">Moralis</a> (Web3).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><a href="https://paulojeronimo.com/firebase-web3-authentication-with-moralis-tutorial/" target="_blank" rel="noopener">I wrote an additional tutorial</a> where I
+followed some steps shown by the Moralis team (using React instead of
+<a href="https://kit.svelte.dev/" target="_blank" rel="noopener">SvelteKit</a>) to achieve the web3 login feature done in this tutorial.
+Here is <a href="https://sveltekit-web3-login-f0618.web.app/" target="_blank" rel="noopener">the running application</a>
+produced by following the steps in this tutorial.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-the-tools-you-will-need-to-follow-this-tutorial"><a class="anchor" href="#setting-up-the-tools-you-will-need-to-follow-this-tutorial"></a>2. Setting up the tools you will need to follow this tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To follow this tutorial you will need a modern Linux environment with
+some tools installed.</p>
+</div>
+<details id="paulojeronimo-linux-environment">
+<summary class="title">Expand this to read more about my Linux environment.</summary>
+<div class="content">
+<div class="paragraph">
+<p>I&#8217;ll use a Linux Ubuntu 22.04 to follow the steps in here.
+You will need the following tools installed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a>.</p>
+</li>
+<li>
+<p>pnpm.</p>
+</li>
+<li>
+<p>Visual Studio Code. <em>Future updates of this tutorial will aggregate
+the use of <a href="https://learn.microsoft.com/en-us/shows/beginners-series-to-dev-containers/?wt.mc_id=devcloud-11496-cxa">devcontainers</a>, a very useful tool</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are the versions of the tools above, running on
+my environment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ node -v
+v16.18.1
+
+$ npm -v
+8.19.2</pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Open a Bash shell on your environment and copy and paste the next
+commands to it.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To keep a better organization of your shell terminals, I
+recommend you to use the <a href="https://github.com/tmux/tmux/wiki" target="_blank" rel="noopener">tmux</a>.
+</td>
+</tr>
+</table>
+</div>
+<div id="clone-this-tutorial" class="paragraph">
+<p>Clone this tutorial to your local machine and change your current
+directory to it:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">repo=https://github.com/paulojeronimo/sveltekit-web3-login-tutorial;
+git clone $repo &amp;&amp; cd $(basename $repo)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you intend only to run <a href="#the-final-code">The final code</a> you can skip directly to
+that session.
+Otherwise &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Install some Bash functions that you will execute on this tutorial:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">. ./functions.sh</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Expand this to see the content of the <code>functions.sh</code> script.</summary>
+<div class="content">
+<div class="listingblock">
+<div class="title">functions.sh</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#!/usr/bin/env bash
+
+TUT_MARK='# SVELTEKIT_WEB3_LOGIN'
+TUT_DIR=$(cd "$(dirname "$BASH_SOURCE[0]")"; pwd)
+PROFILE=~/.bashrc
+
+tut() {
+  case "$1" in
+    add)
+      shift
+      (cd "$TUT_DIR"/files; rsync -R $1 $OLDPWD)
+      ;;
+    apply)
+      shift
+      git apply "$TUT_DIR"/files/$1
+      ;;
+    uninstall)
+      sed -i "/^$TUT_MARK/,+1d" $PROFILE
+      ;;
+    *)
+      cd "$TUT_DIR"
+  esac
+}
+
+if ! grep -q -e "^$TUT_MARK" $PROFILE
+then
+  echo "$TUT_MARK" &gt;&gt; $PROFILE
+  echo ". $TUT_DIR/functions.sh" &gt;&gt; $PROFILE
+fi</code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-sveltekit-project"><a class="anchor" href="#creating-the-sveltekit-project"></a>3. Creating the SvelteKit project</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm create svelte@latest sveltekit-web3-login-private</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Expand this to see my options when I ran the command above.</summary>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="images/creating-the-sveltekit-project.png" alt="creating the sveltekit project"></span></p>
+</div>
+</div>
+</details>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd sveltekit-web3-login-private &amp;&amp; rm -f README.md</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm i &amp;&amp; \
+git init &amp;&amp; git add -A &amp;&amp; \
+git commit -m 'Initial commit'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open another shell (I will name it as <code>pnpm</code>) and, inside it, type:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm run dev -- --open</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open the default site: <a href="http://localhost:5173" class="bare">http://localhost:5173</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-about-page"><a class="anchor" href="#creating-the-about-page"></a>4. Creating the 'About' page</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="testing-a-simple-change"><a class="anchor" href="#testing-a-simple-change"></a>4.1. Testing a simple change</h3>
+<div class="listingblock">
+<div class="title">01.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/src/routes/+page.svelte b/src/routes/+page.svelte
+index 5982b0a..2aebcde 100644
+--- a/src/routes/+page.svelte
++++ b/src/routes/+page.svelte
+@@ -1,2 +1,2 @@
+ &lt;h1&gt;Welcome to SvelteKit&lt;/h1&gt;
+-&lt;p&gt;Visit &lt;a href="https://kit.svelte.dev"&gt;kit.svelte.dev&lt;/a&gt; to read the documentation&lt;/p&gt;
++&lt;p&gt;Visit &lt;a href="https://paulojeronimo.com"&gt;paulojeronimo.com&lt;/a&gt;&lt;/p&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut apply 01.diff</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git add . &amp;&amp; \
+git commit -m 'Made a simple change'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-an-about-page"><a class="anchor" href="#adding-an-about-page"></a>4.2. Adding an 'About' page</h3>
+<div class="listingblock">
+<div class="title">02.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/src/routes/+page.svelte b/src/routes/+page.svelte
+index 2aebcde..3c0827f 100644
+--- a/src/routes/+page.svelte
++++ b/src/routes/+page.svelte
+@@ -1,2 +1,2 @@
+-&lt;h1&gt;Welcome to SvelteKit&lt;/h1&gt;
+-&lt;p&gt;Visit &lt;a href="https://paulojeronimo.com"&gt;paulojeronimo.com&lt;/a&gt;&lt;/p&gt;
++&lt;h1&gt;SvelteKit Web3 Login&lt;/h1&gt;
++&lt;a href="/about"&gt;About&lt;/a&gt;
+diff --git a/src/routes/about/+page.svelte b/src/routes/about/+page.svelte
+new file mode 100644
+index 0000000..8572216
+--- /dev/null
++++ b/src/routes/about/+page.svelte
+@@ -0,0 +1,3 @@
++&lt;h1&gt;About&lt;/h1&gt;
++&lt;p&gt;A page to test Web3 login on SvelteKit.&lt;/p&gt;
++&lt;a href="/"&gt;Home&lt;/a&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut apply 02.diff</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git add . &amp;&amp; \
+git commit -m 'Added an About page'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="building-static-pages-static-site-generation-ssg"><a class="anchor" href="#building-static-pages-static-site-generation-ssg"></a>5. Building static pages (Static Site Generation - SSG)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Stop vite on <code>pnpm</code> shell (by typing p<span class="keyseq"><kbd>Ctrl</kbd>+<kbd>C</kbd></span>) and add an new
+dependencie to the project:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm i -D @sveltejs/adapter-static@latest svelte-preprocess &amp;&amp; \
+git add .</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Optionally we can also uninstall <code>@sveltejs/adapter-auto</code> we the
+following command.<br>
+<span class="red">But for now let&#8217;s skip this step and continue this tutorial</span>.</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre>pnpm rm -D @sveltejs/adapter-auto</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Update <code>svelte.config.js</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">03.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/svelte.config.js b/svelte.config.js
+index 87f198f..5cb2550 100644
+--- a/svelte.config.js
++++ b/svelte.config.js
+@@ -1,14 +1,18 @@
+-import adapter from '@sveltejs/adapter-auto';
+-import { vitePreprocess } from '@sveltejs/kit/vite';
++import preprocess from 'svelte-preprocess';
++import adapter from '@sveltejs/adapter-static';
+ 
+ /** @type {import('@sveltejs/kit').Config} */
+ const config = {
+ 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
+ 	// for more information about preprocessors
+-	preprocess: vitePreprocess(),
++	preprocess: preprocess(),
+ 
+ 	kit: {
+-		adapter: adapter()
++		adapter: adapter({
++			pages: 'build',
++			assets: 'build',
++			fallback: null
++		})
+ 	}
+ };</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut apply 03.diff &amp;&amp; \
+tut add src/routes/+layout.js</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm run build &amp;&amp; tree build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Test the build locally:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">serve -l 5173 build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <a href="https://localhost:5173" class="bare">https://localhost:5173</a></p>
+</div>
+<div class="paragraph">
+<p>Commit all the changes:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git add . &amp;&amp; \
+git commit -m 'Updated to SSG'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy-to-github-pages"><a class="anchor" href="#deploy-to-github-pages"></a>6. Deploy to GitHub Pages</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Press <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>C</kbd></span> to stop the <code>serve</code> running on <code>pnpm</code> terminal.</p>
+</div>
+<div class="paragraph">
+<p>Add gh-pages to <code>package.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm i -D gh-pages &amp;&amp; \
+git add package.json pnpm-lock.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll need to update <code>svelte.config.js</code> according to this diff:</p>
+</div>
+<div class="listingblock">
+<div class="title">04.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/svelte.config.js b/svelte.config.js
+index 5cb2550..b6eecf5 100644
+--- a/svelte.config.js
++++ b/svelte.config.js
+@@ -12,7 +12,10 @@ const config = {
+ 			pages: 'build',
+ 			assets: 'build',
+ 			fallback: null
+-		})
++		}),
++		paths: {
++			base: process.env.NODE_ENV === 'production' ? '/sveltekit-web3-login' : ''
++		}
+ 	}
+ };</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut apply 04.diff</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also, we&#8217;ll need to update the pages.</p>
+</div>
+<div class="paragraph">
+<p>First, <code>src/routes/+page.svelte</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">05.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/src/routes/+page.svelte b/src/routes/+page.svelte
+index 3c0827f..c71bcd1 100644
+--- a/src/routes/+page.svelte
++++ b/src/routes/+page.svelte
+@@ -1,2 +1,6 @@
++&lt;script&gt;
++  import { base } from '$app/paths';
++&lt;/script&gt;
++
+ &lt;h1&gt;SvelteKit Web3 Login&lt;/h1&gt;
+-&lt;a href="/about"&gt;About&lt;/a&gt;
++&lt;a href="{base}/about"&gt;About&lt;/a&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut apply 05.diff</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, <code>src/routes/about/+pages.svelte</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">06.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/src/routes/about/+page.svelte b/src/routes/about/+page.svelte
+index 8572216..ed1df81 100644
+--- a/src/routes/about/+page.svelte
++++ b/src/routes/about/+page.svelte
+@@ -1,3 +1,7 @@
++&lt;script&gt;
++  import { base } from '$app/paths';
++&lt;/script&gt;
++
+ &lt;h1&gt;About&lt;/h1&gt;
+ &lt;p&gt;A page to test Web3 login on SvelteKit.&lt;/p&gt;
+-&lt;a href="/"&gt;Home&lt;/a&gt;
++&lt;a href="{base}/"&gt;Home&lt;/a&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut apply 06.diff</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, we&#8217;ll create a <code>deploy</code> script:</p>
+</div>
+<div class="listingblock">
+<div class="title">07.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/package.json b/package.json
+index 03f33b8..6d1339d 100644
+--- a/package.json
++++ b/package.json
+@@ -5,6 +5,8 @@
+ 	"scripts": {
+ 		"dev": "vite dev",
+ 		"build": "vite build",
++		"predeploy": "NODE_ENV=production npm run build",
++		"deploy": "touch build/.nojekyll &amp;&amp; gh-pages -d build -t true",
+ 		"preview": "vite preview",
+ 		"check": "svelte-kit sync &amp;&amp; svelte-check --tsconfig ./tsconfig.json",
+ 		"check:watch": "svelte-kit sync &amp;&amp; svelte-check --tsconfig ./tsconfig.json --watch",</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut apply 07.diff</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, let&#8217;s commit all theses changes.</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git add . &amp;&amp; \
+git commit -m 'Added gh-pages support'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To <code>deploy</code> on GitHub Pages, let&#8217;s first configure the <code>origin</code> for this
+repo.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Before executing this command, substitute my GitHub account
+(<code>paulojeronimo</code>) with yours or the next command will fail!</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">repo=paulojeronimo/sveltekit-web3-login;
+git remote add origin git@github.com:$repo.git &amp;&amp;
+git repo set-default</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, type the command below.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Note that you will need the <a href="https://cli.github.com/" target="_blank" rel="noopener">GitHub CLI (gh)</a>
+installed to this command succeeds!</p>
+</li>
+<li>
+<p>If the repo <code>sveltekit-web3-login</code> already exists, you will need to
+  delete it first with this command: <code>gh repo delete --confirm</code>.
+So, this will "undeploy" the project from GitHub Pages.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo create $repo --public &amp;&amp; \
+pnpm run deploy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <a href="https://paulojeronimo.com/sveltekit-web3-login" class="bare">https://paulojeronimo.com/sveltekit-web3-login</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Obviously, you will be using your own account.
+So the URL in your case will be different
+(<a href="https://your-name.github.io/sveltekit-web3-login" class="bare">https://your-name.github.io/sveltekit-web3-login</a>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="putting-the-redundant-code-in-a-layout-file"><a class="anchor" href="#putting-the-redundant-code-in-a-layout-file"></a>7. Putting the redundant code in a layout file</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The piece of redudant code in the pages above will be moved
+to a new file:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/routes/+layout.svelte</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-svelte hljs" data-lang="svelte">&lt;script&gt;
+  import { base } from '$app/paths';
+&lt;/script&gt;
+
+&lt;nav&gt;
+  &lt;a href="{base}/"&gt;Home&lt;/a&gt;
+  &lt;a href="{base}/about"&gt;About&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;slot/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After that we&#8217;ll need to remove that code that was redundant in the
+pages:</p>
+</div>
+<div class="listingblock">
+<div class="title">08.diff</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">diff --git a/src/routes/+page.svelte b/src/routes/+page.svelte
+index c71bcd1..fcfec57 100644
+--- a/src/routes/+page.svelte
++++ b/src/routes/+page.svelte
+@@ -1,6 +1 @@
+-&lt;script&gt;
+-  import { base } from '$app/paths';
+-&lt;/script&gt;
+-
+ &lt;h1&gt;SvelteKit Web3 Login&lt;/h1&gt;
+-&lt;a href="{base}/about"&gt;About&lt;/a&gt;
+diff --git a/src/routes/about/+page.svelte b/src/routes/about/+page.svelte
+index ed1df81..ae068f6 100644
+--- a/src/routes/about/+page.svelte
++++ b/src/routes/about/+page.svelte
+@@ -1,7 +1 @@
+-&lt;script&gt;
+-  import { base } from '$app/paths';
+-&lt;/script&gt;
+-
+ &lt;h1&gt;About&lt;/h1&gt;
+-&lt;p&gt;A page to test Web3 login on SvelteKit.&lt;/p&gt;
+-&lt;a href="{base}/"&gt;Home&lt;/a&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So, let&#8217;s apply these changes:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tut add src/routes/+layout.svelte &amp;&amp; \
+tut apply 08.diff</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start vite again and refresh <a href="http://localhost:5173" class="bare">http://localhost:5173</a> to note the changes:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm run dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, commit the updates:</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: default</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git add . &amp;&amp; \
+git commit -m 'Created src/routes/+layout.svelte'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="building-a-navbar-using-sveltestrap"><a class="anchor" href="#building-a-navbar-using-sveltestrap"></a>8. Building a Navbar (using sveltestrap)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Type an <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>C</kbd></span> on the <code>pnpm</code> shell to add <a href="https://sveltestrap.js.org/?path=/story/components&#8212;&#8203;get-started" target="_blank" rel="noopener">Sveltestrap</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">shell: pnpm</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pnpm i sveltestrap &amp;&amp; \
+git add .</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="many-other-topics"><a class="anchor" href="#many-other-topics"></a>9. Many other topics &#8230;&#8203;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="red">TODO</span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-final-code"><a class="anchor" href="#the-final-code"></a>10. The final code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After completing all the steps followed in this tutorial (<em>including the
+steps not yet documented</em>), the final code and the instructions to put
+it running on GitHub Pages, are available in the directory
+<a href="https://github.com/paulojeronimo/sveltekit-web3-login-tutorial/tree/gh-pages/final-code" target="_blank" rel="noopener">"final-code"</a> of this tutorial.</p>
+</div>
+<div class="sect2">
+<h3 id="running-locally"><a class="anchor" href="#running-locally"></a>10.1. Running locally</h3>
+<div class="paragraph">
+<p>First, you need to <a href="#clone-this-tutorial">clone the repository of this
+tutorial</a>.
+After that, copy and paste the following commands to your command line:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd final-code &amp;&amp; \
+pnpm install &amp;&amp; pnpm run dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <a href="http://localhost:5173" class="bare">http://localhost:5173</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploying-to-github-pages"><a class="anchor" href="#deploying-to-github-pages"></a>10.2. Deploying to GitHub Pages</h3>
+<div class="paragraph">
+<p>Inside the <code>final-code</code> directory, type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm run build &amp;&amp; npm run deploy</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/languages/svelte.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
+<style>
+.doc .listingblock > .content {
+  position: relative;
+}
+
+.doc .listingblock code[data-lang]::before {
+  content: none;
+}
+
+.doc .source-toolbox {
+  display: flex;
+  position: absolute;
+  visibility: hidden;
+  top: 0.25rem;
+  right: 0.5rem;
+  color: #808080;
+  white-space: nowrap;
+  font-size: 0.85em;
+}
+
+.doc .listingblock:hover .source-toolbox {
+  visibility: visible;
+}
+
+.doc .source-toolbox .source-lang {
+  font-family: "Droid Sans Mono", "DejaVu Sans Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+}
+
+.doc .source-toolbox > :not(:last-child)::after {
+  content: "|";
+  letter-spacing: 0;
+  padding: 0 1ch;
+}
+
+.doc .source-toolbox .copy-button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  outline: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  width: 1em;
+  height: 1em;
+}
+
+.doc .source-toolbox .copy-icon {
+  flex: none;
+  width: inherit;
+  height: inherit;
+  filter: invert(50.2%);
+  margin-top: 0.05em;
+}
+
+.doc .source-toolbox .copy-toast {
+  flex: none;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  margin-top: 1em;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  cursor: auto;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.75s;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+
+.doc .source-toolbox .copy-toast::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 1em;
+  height: 1em;
+  border: 0.55em solid transparent;
+  border-left-color: rgba(0, 0, 0, 0.8);
+  transform: rotate(-90deg) translateX(50%) translateY(50%);
+  transform-origin: left;
+}
+
+.doc .source-toolbox .copy-button.clicked .copy-toast {
+  opacity: 1;
+  transition: none;
+}
+</style>
+<script src="./js/copy-to-clipboard.js"></script>
+</body>
+</html>

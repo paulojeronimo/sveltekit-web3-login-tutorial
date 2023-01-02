@@ -1,0 +1,12 @@
+diff --git a/src/routes/+page.svelte b/src/routes/+page.svelte
+index 3c0827f..c71bcd1 100644
+--- a/src/routes/+page.svelte
++++ b/src/routes/+page.svelte
+@@ -1,2 +1,6 @@
++<script>
++  import { base } from '$app/paths';
++</script>
++
+ <h1>SvelteKit Web3 Login</h1>
+-<a href="/about">About</a>
++<a href="{base}/about">About</a>

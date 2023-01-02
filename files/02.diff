@@ -1,0 +1,18 @@
+diff --git a/src/routes/+page.svelte b/src/routes/+page.svelte
+index 2aebcde..3c0827f 100644
+--- a/src/routes/+page.svelte
++++ b/src/routes/+page.svelte
+@@ -1,2 +1,2 @@
+-<h1>Welcome to SvelteKit</h1>
+-<p>Visit <a href="https://paulojeronimo.com">paulojeronimo.com</a></p>
++<h1>SvelteKit Web3 Login</h1>
++<a href="/about">About</a>
+diff --git a/src/routes/about/+page.svelte b/src/routes/about/+page.svelte
+new file mode 100644
+index 0000000..8572216
+--- /dev/null
++++ b/src/routes/about/+page.svelte
+@@ -0,0 +1,3 @@
++<h1>About</h1>
++<p>A page to test Web3 login on SvelteKit.</p>
++<a href="/">Home</a>
